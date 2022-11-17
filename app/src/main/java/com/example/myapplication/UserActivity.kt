@@ -1,12 +1,20 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import androidx.room.Room
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class UserActivity : AppCompatActivity() {
+    private lateinit var receiver: NumberReceiver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
@@ -28,5 +36,25 @@ class UserActivity : AppCompatActivity() {
                 stopService(intent)
             }
         }
+
+        val db = MyDatabase.getDb(this)
+
+        findViewById<Button>(R.id.userDetailsButton).setOnClickListener{
+            CoroutineScope(Dispatchers.IO).launch {
+                db.userDao().getAll().forEach {
+                    Log.i("UserActivity", "User: ${it.name} count: ${it.count}")
+                };
+            }
+        }
+
+        receiver = NumberReceiver()
+        IntentFilter("com.example.broadcast.SERVICE_STOPPED_NOTIFICATION").also {
+            registerReceiver(receiver, it)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(receiver)
     }
 }

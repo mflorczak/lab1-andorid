@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.app.Service
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -41,8 +42,8 @@ class CounterService : Service() {
 
     override fun onDestroy() {
         isRunning = false
-        Intent(this, NumberReceiver::class.java).also { intent ->
-            intent.action = "com.example.broadcast.SERVICE_STOPPED_NOTIFICATION"
+
+        Intent("com.example.broadcast.SERVICE_STOPPED_NOTIFICATION").also { intent ->
             intent.putExtra("name", userName)
             intent.putExtra("count", c)
             sendBroadcast(intent)

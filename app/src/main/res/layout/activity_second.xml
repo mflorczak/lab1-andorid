@@ -43,4 +43,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/displayUserName"
         app:layout_constraintVertical_bias="0.101" />
+
+    <Button
+        android:id="@+id/userDetailsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Show user details"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stopServiceButton"
+        app:layout_constraintVertical_bias="0.232" />
 </androidx.constraintlayout.widget.ConstraintLayout>
