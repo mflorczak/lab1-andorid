@@ -8,6 +8,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,7 +45,7 @@ class UserActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 db.userDao().getAll().forEach {
                     Log.i("UserActivity", "User: ${it.name} count: ${it.count}")
-                };
+                }
             }
         }
 
